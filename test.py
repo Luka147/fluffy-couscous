@@ -1,5 +1,6 @@
 import pymysql
 import pymysql.cursors
+import json
 
 connection = pymysql.connect(host='localhost',
                              user='user',
@@ -10,19 +11,19 @@ connection = pymysql.connect(host='localhost',
 
 table = input('Which table would you like to search: ')
 
-with connection.cursor() as cursor:
-
-    sql = f"DESCRIBE {table}"
-    field_search = cursor.execute(sql)
-
-
 fields = ''
 while True:
     fields = input('Type ls to list fields in the table.\nFields to search: ')
     if fields != 'ls':
         break
     else:
-        print(field_search)
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM authors LIMIT 0")
+            x = cursor.description
+            a=0
+            for i in x:
+                print(x[a][0])
+                a+=1
 
 n = input('How many results would you like to fetch: ')
 
