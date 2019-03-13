@@ -1,6 +1,5 @@
 import pymysql
 import pymysql.cursors
-import json
 
 connection = pymysql.connect(host='localhost',
                              user='user',
@@ -9,9 +8,22 @@ connection = pymysql.connect(host='localhost',
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
 
-table = input('Which table would you like to search: ')
+while True:
+    table = input('Type ls to list all tables in db \nWhich table would you like to search: ')
+    if table != 'ls':
+        break
+    else:
+        with connection.cursor() as cursor:
+            cursor.execute("SHOW tables")
+            x = cursor.fetchall()
+            a=0
+            for Xavin in x:
+                print(x[a]['Tables_in_test'])
+                a+=1
+                
 
-fields = ''
+
+
 while True:
     fields = input('Type ls to list fields in the table.\nFields to search: ')
     if fields != 'ls':
@@ -33,4 +45,3 @@ with connection.cursor() as cursor:
     cursor.execute(sql)
     result = cursor.fetchmany(int(n))
     print(result)
-    
