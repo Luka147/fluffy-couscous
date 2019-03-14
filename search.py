@@ -38,7 +38,6 @@ while True:
                 a+=1
             print('\n',b)
 
-
 n = input('\nHow many results would you like to fetch: ')
 
 with connection.cursor() as cursor:
