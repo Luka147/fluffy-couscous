@@ -8,8 +8,9 @@ connection = pymysql.connect(host='localhost',
                              charset='utf8mb4',
                              cursorclass=pymysql.cursors.DictCursor)
 
+print('Type ls to list all tables in db')
 while True:
-    table = input('Type ls to list all tables in db \nWhich table would you like to search: ')
+    table = input('\nWhich table would you like to search: ')
     if table != 'ls':
         break
     else:
@@ -20,12 +21,10 @@ while True:
             for Xavin in x:
                 print(x[a]['Tables_in_test'])
                 a+=1
-                
 
-
-
+print('\nType ls to list fields in the table.')
 while True:
-    fields = input('Type ls to list fields in the table.\nFields to search: ')
+    fields = input('\nFields to search: ')
     if fields != 'ls':
         break
     else:
@@ -33,11 +32,14 @@ while True:
             cursor.execute("SELECT * FROM authors LIMIT 0")
             x = cursor.description
             a=0
+            b=''
             for i in x:
-                print(x[a][0])
+                b+=x[a][0] + ', '
                 a+=1
+            print('\n',b)
 
-n = input('How many results would you like to fetch: ')
+
+n = input('\nHow many results would you like to fetch: ')
 
 with connection.cursor() as cursor:
 
